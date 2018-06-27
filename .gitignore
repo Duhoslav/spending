@@ -106,3 +106,4 @@ venv.bak/
 
 /spending/
 /.idea/
+/spending_server/static/
