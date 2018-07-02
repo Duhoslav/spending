@@ -10,12 +10,13 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Item(models.Model):
     name = models.CharField(max_length=200)
     count = models.IntegerField()
     price = models.IntegerField(help_text="Цена в копейках")
     producer = models.CharField(max_length=500)
-    category = models.ForeignKey(Category, blank=True)
+    category = models.ForeignKey(Category, blank=True, on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.name

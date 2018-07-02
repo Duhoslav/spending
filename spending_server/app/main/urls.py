@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from server import views
+from app.main import views
+from api import server_api
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
 ]
