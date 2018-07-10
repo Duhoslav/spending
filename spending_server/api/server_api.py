@@ -19,5 +19,7 @@ def add_check(request):
     # model = serializers.serialize(Check.objects.all())
     json = network.get_cash()
     parser = json_parser.JsonParser(json=json, model=Check)
-    res = parser.json_to_database()
+    serialized_check = [parser.json_to_database()]
+    for deserialized_object in serializers.deserialize("python", serialized_check):
+        deserialized_object.save()
     return render(request, 'check.html')

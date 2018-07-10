@@ -108,3 +108,4 @@ venv.bak/
 /.idea/
 /spending_server/static/
 /spending_server/db.sqlite3
+*.sqlite3

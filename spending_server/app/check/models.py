@@ -23,11 +23,11 @@ class Item(models.Model):
 
 
 class Check(models.Model):
-    id = models.CharField(max_length=32, primary_key=True)
-    ts = models.CharField(max_length=200)
-    organization = models.TextField(max_length=200)
-    address = models.CharField(max_length=500)
-    cash_total_sum = models.IntegerField(help_text="Сумма по чеку в копеках")
+    fiscalDocumentNumber = models.IntegerField(primary_key=True, help_text="ФПД", default=0)
+    dateTime = models.CharField(max_length=200, help_text="Время покупки", default="")
+    user = models.TextField(max_length=200, help_text="Организация", default="")
+    retailPlaceAddress = models.CharField(max_length=500, help_text="Адрес магазина", default="")
+    totalSum = models.IntegerField(help_text="Сумма по чеку в копеках", default=0)
 
     def __unicode__(self):
-        return self.ts
+        return self.dateTime
