@@ -9,12 +9,12 @@ def check(request):
     context = {
         "checks": checks
     }
-    return render(request, 'check.html', context=context)
+    return render(request, "check.html", context=context)
 
 
 def add_check(request):
-    print('ok')
+    print("ok")
     #json = network.get_cash()
     #parser = json_parser.JsonParser(json=json, model=Check)
     #res = parser.json_to_database()
-    return 0#render(request, 'check.html')
+    return 0#render(request, "check.html")

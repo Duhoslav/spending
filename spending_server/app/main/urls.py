@@ -4,6 +4,7 @@ from django.conf.urls import url
 from app.main import views
 from api import server_api
 
+
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
+    url(r"^$", views.home, name="home"),
 ]
