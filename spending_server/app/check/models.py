@@ -11,17 +11,6 @@ class Category(models.Model):
         return self.name
 
 
-class Item(models.Model):
-    name = models.CharField(max_length=200)
-    count = models.IntegerField()
-    price = models.IntegerField(help_text="Цена в копейках")
-    producer = models.CharField(max_length=500)
-    category = models.ForeignKey(Category, blank=True, on_delete=models.CASCADE)
-
-    def __unicode__(self):
-        return self.name
-
-
 class Check(models.Model):
     fiscalDocumentNumber = models.IntegerField(primary_key=True, help_text="ФПД", default=0)
     dateTime = models.CharField(max_length=200, help_text="Время покупки", default="")
@@ -31,3 +20,15 @@ class Check(models.Model):
 
     def __unicode__(self):
         return self.dateTime
+
+
+class Item(models.Model):
+    name = models.CharField(max_length=200)
+    quantity = models.IntegerField(blank=True)
+    sum = models.IntegerField(help_text="Цена в копейках")
+    producer = models.CharField(max_length=500, blank=True)
+    category = models.ForeignKey(Category, blank=True, on_delete=None, null=True)
+    cash_check = models.ForeignKey(Check, on_delete=None)
+
+    def __unicode__(self):
+        return self.name

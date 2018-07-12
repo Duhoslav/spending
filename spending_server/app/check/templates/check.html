@@ -28,9 +28,15 @@
                             <div class="card">
                                 <div class="card-header">
                                     <p>Чек за {{ check.dateTime }}
-                                    <br /> Магазин: {{ check.user }}
+                                        <br/> Магазин: {{ check.user }}
                                 </div>
                                 <div class="card-body">
+                                    {% for good in goods %}
+                                        <p>Товар: {{ good.name }}
+                                            <br/>Цена: {{ good.sum | divide:"100"}}
+                                            <br/>Количество: {{ good.quantity }}
+                                        </p>
+                                    {% endfor %}
 
                                 </div>
                                 <div class="card-footer">
