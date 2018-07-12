@@ -24,7 +24,7 @@ class Check(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length=200)
-    quantity = models.IntegerField(blank=True)
+    quantity = models.FloatField(blank=True)
     sum = models.IntegerField(help_text="Цена в копейках")
     producer = models.CharField(max_length=500, blank=True)
     category = models.ForeignKey(Category, blank=True, on_delete=None, null=True)

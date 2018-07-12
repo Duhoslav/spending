@@ -9,9 +9,6 @@ bootstrap re-define
     /*padding: 0;*/
 }
 
-.bg-dark {
-    background-color: #2b3d4e !important;
-}
 /*
 custom classes
  */
@@ -43,4 +40,8 @@ custom classes
 .btn__check_add:hover {
     color: #28a745;
     border-color: transparent;
+}
+
+.cards__check_container {
+    padding-top: 5%;
 }

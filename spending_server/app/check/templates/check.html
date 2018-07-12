@@ -25,25 +25,30 @@
                 <div class="container">
                     <div class="row cards__check_container">
                         {% for check in checks %}
-                            <div class="card">
-                                <div class="card-header">
-                                    <p>Чек за {{ check.dateTime }}
-                                        <br/> Магазин: {{ check.user }}
-                                </div>
-                                <div class="card-body">
-                                    {% for good in goods %}
-                                        <p>Товар: {{ good.name }}
-                                            <br/>Цена: {{ good.sum | divide:"100"}}
-                                            <br/>Количество: {{ good.quantity }}
-                                        </p>
-                                    {% endfor %}
+                            <div class="col-md-4 offset-md-2">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <p>Чек за {{ check.dateTime }}
+                                            <br/> Магазин: {{ check.user }}
+                                    </div>
+                                    <div class="card-body">
+                                        {% for good in goods %}
+                                            <p>Товар: {{ good.name }}
+                                                <br/>Количество: {{ good.quantity }}
+                                                <br/>Цена: {{ good.sum | divide:"100"}}
+                                            </p>
+                                        {% endfor %}
 
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="card-text">
+                                            <b>Итог: </b> {{ check.totalSum | divide:"100" }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="card-footer">
-                                    <p class="card-text">
-                                        <b>Итог: </b> {{ check.totalSum | divide:"100" }}
-                                    </p>
-                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <canvas id="myChart" width="400" height="400"></canvas>
                             </div>
                         {% endfor %}
                     </div>
@@ -55,4 +60,5 @@
 
 {% block scripts %}
     <script type="text/javascript" src="{% static "js/check.js" %}"></script>
+    <script type="text/javascript" src="{% static "ChartJS/Chart.min.js" %}"></script>
 {% endblock %}
