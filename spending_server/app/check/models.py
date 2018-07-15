@@ -7,7 +7,7 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=100, help_text="Название категории")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -18,7 +18,7 @@ class Check(models.Model):
     retailPlaceAddress = models.CharField(max_length=500, help_text="Адрес магазина", default="")
     totalSum = models.IntegerField(help_text="Сумма по чеку в копеках", default=0)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.dateTime
 
 
@@ -30,5 +30,5 @@ class Item(models.Model):
     category = models.ForeignKey(Category, blank=True, on_delete=None, null=True)
     cash_check = models.ForeignKey(Check, on_delete=None)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name

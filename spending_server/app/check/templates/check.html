@@ -8,12 +8,13 @@
 {% endblock %}
 
 {% block content %}
+    {% csrf_token %}
     <div class="container-fluid">
         <div class="row" style="height: 100%;">
             <div class="col-md-2 container__check_left">
                 <div class="btn-group-vertical menu__check_left">
                     {% for check in checks %}
-                        <button type="button"
+                        <button type="button" id="{{ check.fiscalDocumentNumber }}"
                                 class="btn btn-outline-success btn__check_left">{{ check.dateTime }}</button>
                     {% endfor %}
                     <button onclick="location.href='/api/add_check'" class="btn__icon btn__check_add"><i

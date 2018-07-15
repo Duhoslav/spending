@@ -1,3 +1,4 @@
+{% load math %}
 <div class="col-md-4 offset-md-2">
     <div class="card">
         <div class="card-header">
@@ -8,7 +9,7 @@
             {% for good in goods %}
                 <p>Товар: {{ good.name }}
                     <br/>Количество: {{ good.quantity }}
-                    <br/>Цена: {{ good.sum | divide:"100"}}
+                    <br/>Цена: {{ good.sum | divide:"100" }}
                 </p>
             {% endfor %}
 
@@ -26,7 +27,12 @@
         const ctx = $("#cash_chart");
         const data = {
             datasets: [{
-                data: [10, 20, 30],
+                data: [
+                    {% for category, percent in categories.items %}
+                        "{{ percent }}",
+                    {% endfor %}
+
+                ],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -36,9 +42,9 @@
 
             // These labels appear in the legend and in the tooltips when hovering different arcs
             labels: [
-                'Red',
-                'Yellow',
-                'Blue'
+                {% for category, percent in categories.items %}
+                    "{{ category }}",
+                {% endfor %}
             ]
         };
         const options = {};
