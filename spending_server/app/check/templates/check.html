@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% load math %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/check.css" %}">
+    <link rel="stylesheet" href="{% static "fontawesome-5.1.0/css/all.css" %}">
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    <div class="container-fluid">
+        <div class="row" style="height: 100%;">
+            <div class="col-md-2 container__check_left">
+                <div class="btn-group-vertical menu__check_left">
+                    {% for check in checks %}
+                        <button type="button" id="{{ check.fiscalDocumentNumber }}"
+                                class="btn btn-outline-success btn__check_left">{{ check.dateTime }}</button>
+                    {% endfor %}
+                    <button onclick="location.href='/api/add_check'" class="btn__icon btn__check_add"><i
+                            class="fas fa-plus-circle"></i></button>
+                </div>
+
+            </div>
+            <div class="col-md-10">
+                <div class="container">
+                    <div class="row cards__check_container">
+                        {% for check in checks %}
+                            <div class="col-md-4 offset-md-2">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <p>Чек за {{ check.dateTime }}
+                                            <br/> Магазин: {{ check.user }}
+                                    </div>
+                                    <div class="card-body">
+                                        {% for good in goods %}
+                                            <p>Товар: {{ good.name }}
+                                                <br/>Количество: {{ good.quantity }}
+                                                <br/>Цена: {{ good.sum | divide:"100"}}
+                                            </p>
+                                        {% endfor %}
+
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="card-text">
+                                            <b>Итог: </b> {{ check.totalSum | divide:"100" }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <canvas id="myChart" width="400" height="400"></canvas>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static "js/check.js" %}"></script>
+    <script type="text/javascript" src="{% static "ChartJS/Chart.min.js" %}"></script>
+{% endblock %}

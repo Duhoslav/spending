@@ -1,0 +1,57 @@
+{% load math %}
+<div class="col-md-4 offset-md-2">
+    <div class="card">
+        <div class="card-header">
+            <p>Чек за {{ check.dateTime }}
+                <br/> Магазин: {{ check.user }}
+        </div>
+        <div class="card-body">
+            {% for good in goods %}
+                <p>Товар: {{ good.name }}
+                    <br/>Количество: {{ good.quantity }}
+                    <br/>Цена: {{ good.sum | divide:"100" }}
+                </p>
+            {% endfor %}
+
+        </div>
+        <div class="card-footer">
+            <p class="card-text">
+                <b>Итог: </b> {{ check.totalSum | divide:"100" }}
+            </p>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <canvas id="cash_chart" width="400" height="400"></canvas>
+    <script>
+        const ctx = $("#cash_chart");
+        const data = {
+            datasets: [{
+                data: [
+                    {% for category, percent in categories.items %}
+                        "{{ percent }}",
+                    {% endfor %}
+
+                ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)']
+
+            }],
+
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: [
+                {% for category, percent in categories.items %}
+                    "{{ category }}",
+                {% endfor %}
+            ]
+        };
+        const options = {};
+        const myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
+    </script>
+</div>

@@ -1,0 +1,47 @@
+body {
+    color: #2b3d4e;
+    background-color: #fdecd6a3;
+}
+/*
+bootstrap re-define
+ */
+.container-fluid {
+    /*padding: 0;*/
+}
+
+/*
+custom classes
+ */
+.container__check_left {
+    background-color: #2f3b46e8;
+    padding-top: 15px;
+}
+.menu__check_left {
+    width: 100%;
+}
+
+.btn__icon {
+    cursor: pointer;
+}
+
+.btn__check_left {
+    border-color: transparent;
+    color: whitesmoke;
+}
+
+.btn__check_add {
+    color:whitesmoke;
+    width: 100%;
+    text-align: center;
+    border-color: transparent;
+    background-color: inherit;
+}
+
+.btn__check_add:hover {
+    color: #28a745;
+    border-color: transparent;
+}
+
+.cards__check_container {
+    padding-top: 5%;
+}
