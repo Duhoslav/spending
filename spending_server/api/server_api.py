@@ -4,6 +4,8 @@ from modules import network
 from modules.parsers import json_parser
 from app.check.models import Check, Item
 from django.core import serializers
+from app.check.forms import FiscalData
+import modules.network.request as FNS
 
 ################################
 #### API Method to get check. Creds required.
@@ -23,7 +25,7 @@ def get_check(request):
         categories = {}
         for good in goods:
             if good.category.name in categories:
-                categories[good.category.name] += (good.sum/check.totalSum)*100
+                categories[good.category.name] += (good.sum / check.totalSum) * 100
             else:
                 categories[good.category.name] = (good.sum / check.totalSum) * 100
         context = {
@@ -35,16 +37,21 @@ def get_check(request):
 
 
 def add_check(request):
-    print("ok")
-    # model = serializers.serialize(Check.objects.all())
-    json = network.get_cash()
-    parser = json_parser.JsonParser(json=json, models=(Check, Item))
-    serialized_check = parser.json_to_database()
-    check_object = None
-    for deserialized_object in serializers.deserialize("python", serialized_check):
-        if deserialized_object.object._meta.model_name == 'check':
-            check_object = deserialized_object.object
-        elif deserialized_object.object._meta.model_name == 'item':
-            deserialized_object.object.cash_check = check_object
-        deserialized_object.save()
-    return render(request, "check.html")
+    if request.method == "POST":
+        form = FiscalData(request.POST)
+        if not form.is_valid():
+            return HttpResponseBadRequest("wrong check data")
+        fn = request.POST.get("fn")
+        fiscalDocumentNumber = request.POST.get("fd")
+        fpd = request.POST.get("fpd")
+        json = FNS.get_check("+", "", fn, fiscalDocumentNumber, fpd)
+        parser = json_parser.JsonParser(json=json, models=(Check, Item))
+        serialized_check = parser.json_to_database()
+        check_object = None
+        for deserialized_object in serializers.deserialize("python", serialized_check):
+            if deserialized_object.object._meta.model_name == 'check':
+                check_object = deserialized_object.object
+            elif deserialized_object.object._meta.model_name == 'item':
+                deserialized_object.object.cash_check = check_object
+            deserialized_object.save()
+        return render(request, "check.html")

@@ -29,4 +29,22 @@ $(document).ready(function () {
                 console.log(err);
             });
     });
+
+    $(".btn__check_add").click(function () {
+        const postData = {
+            "fn": $('.input__fn').val(),
+            "fd": $('.input__fd').val(),
+            "fpd": $('.input__fpd').val()
+        };
+        $.post("/api/add_check/", postData)
+            .done(function (data) {
+                if (data.length > 0) {
+                    $('.cards__check_container').html(data);
+                }
+                console.log(data);
+            })
+            .fail(function (err) {
+                console.log(err);
+            });
+    })
 });

@@ -17,41 +17,18 @@
                         <button type="button" id="{{ check.fiscalDocumentNumber }}"
                                 class="btn btn-outline-success btn__check_left">{{ check.dateTime }}</button>
                     {% endfor %}
-                    <button onclick="location.href='/api/add_check'" class="btn__icon btn__check_add"><i
-                            class="fas fa-plus-circle"></i></button>
+                    <input type="fn" class="form-control input__fn" placeholder="Enter fn">
+                    <input type="fd" class="form-control input__fd" placeholder="Enter fd">
+                    <input type="fpd" class="form-control input__fpd" placeholder="Enter fpd">
+                    <button class="btn__icon btn__check_add"><i class="fas fa-plus-circle"></i></button>
                 </div>
 
             </div>
+
             <div class="col-md-10">
                 <div class="container">
                     <div class="row cards__check_container">
-                        {% for check in checks %}
-                            <div class="col-md-4 offset-md-2">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <p>Чек за {{ check.dateTime }}
-                                            <br/> Магазин: {{ check.user }}
-                                    </div>
-                                    <div class="card-body">
-                                        {% for good in goods %}
-                                            <p>Товар: {{ good.name }}
-                                                <br/>Количество: {{ good.quantity }}
-                                                <br/>Цена: {{ good.sum | divide:"100"}}
-                                            </p>
-                                        {% endfor %}
 
-                                    </div>
-                                    <div class="card-footer">
-                                        <p class="card-text">
-                                            <b>Итог: </b> {{ check.totalSum | divide:"100" }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <canvas id="myChart" width="400" height="400"></canvas>
-                            </div>
-                        {% endfor %}
                     </div>
                 </div>
             </div>
