@@ -1,16 +1,17 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseBadRequest
-from modules import network
-from modules.parsers import json_parser
-from app.check.models import Check, Item
 from django.core import serializers
-from app.check.forms import FiscalData
-import modules.network.request as FNS
+from django.http import HttpResponseBadRequest
+from django.shortcuts import render
 
-################################
-#### API Method to get check. Creds required.
-###############################
+import modules.network.fns_api.query as fns
+from app.check.forms import FiscalData
+from app.check.models import Check, Item
+from modules.parsers import json_parser
+
+
 def get_check(request):
+    """ API Method to get check. Credentials required.
+
+    """
     if request.method == "POST":
         fiscalDocumentNumber = request.POST.get("id")
         if not len(fiscalDocumentNumber) or not fiscalDocumentNumber.isdigit():
@@ -44,7 +45,7 @@ def add_check(request):
         fn = request.POST.get("fn")
         fiscalDocumentNumber = request.POST.get("fd")
         fpd = request.POST.get("fpd")
-        json = FNS.get_check("+", "", fn, fiscalDocumentNumber, fpd)
+        json = fns.get_check("+", "", fn, fiscalDocumentNumber, fpd)
         parser = json_parser.JsonParser(json=json, models=(Check, Item))
         serialized_check = parser.json_to_database()
         check_object = None

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class JsonParser:
     def __init__(self, json, models):
         self.json = json
@@ -16,7 +17,7 @@ class JsonParser:
                     if type(item) == dict:
                         self.__get_field_by_key(field, item, result)
 
-    def find_all_fileds(self, fields):
+    def find_all_fields(self, fields):
         result = {}
         for field in fields:
             values = []
@@ -29,9 +30,9 @@ class JsonParser:
         serialized = []
         for model in self.models:
             name = model._meta.label
-            model_fileds = model._meta.get_fields()
-            model_fileds = [x.attname for x in model_fileds if hasattr(x, 'attname')]
-            fields = self.find_all_fileds(fields=model_fileds)
+            model_fields = model._meta.get_fields()
+            model_fields = [x.attname for x in model_fields if hasattr(x, 'attname')]
+            fields = self.find_all_fields(fields=model_fields)
             object_count = max([len(v) for (k, v) in fields.items()])
             for i in range(object_count):
                 new_fields = {}
